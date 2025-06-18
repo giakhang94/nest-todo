@@ -1,13 +1,14 @@
-import { Column, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 type Role = 'admin' | 'user';
-export class UserEntity {
-  @PrimaryColumn()
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   username: string;
 
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Column()

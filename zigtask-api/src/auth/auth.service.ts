@@ -9,12 +9,12 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}
-  async verifyUser(body: LoginUserDto) {
-    const user = await this.usersService.getUserByEmail(body.email);
+  async verifyUser(email: string, password: string) {
+    const user = await this.usersService.getUserByEmail(email);
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    const isMatchPassword = bcrypt.compare(body.password, user.password);
+    const isMatchPassword = bcrypt.compare(password, user.password);
     if (!isMatchPassword) {
       throw new BadRequestException('email or password is not correct');
     }

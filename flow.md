@@ -149,3 +149,8 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 - ApiBadRequestResponse()
 - @ApiProperty({ example: 'khang@test.com' }) // đùng trong dto
 - @ApiProperty({enum: Role, example: Role.User})
+
+## Task 6 - auth module
+
+- create module
+- tao verifyUser() trong service

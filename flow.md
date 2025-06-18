@@ -48,3 +48,66 @@ export class AppModule {}
   - `create user test_user with password 'testpassword';`
   - `create database  nestjs_test owner test_user;`
   - `grant all privileges on database nestjs_test to test_user;` <= cấp toàn bộ quyền cho user trên db test
+
+## task 3 connect db
+
+- tạo postgresConfig fuction return object chứa các config. Tạo function để sử dụng thằng configService
+  - sử dụng `config.get<string>('DB_HOST')`
+
+```ts
+import { ConfigService } from "@nestjs/config";
+import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+
+export const postgresConfig = (config: ConfigService): TypeOrmModuleOptions => {
+  return {
+    type: "postgres",
+    host: config.get<string>("DB_HOST"),
+    port: Number(config.get<string>("DB_PORT")) || 5433,
+    username: config.get<string>("DB_USERNAME") || "postgres",
+    password: config.get<string>("DB_PASSWORD"),
+    database: config.get<string>("DB_NAME"),
+    entities: [],
+    synchronize: config.get<string>("NODE_ENV") === "production" ? true : false,
+  };
+};
+```
+
+- thêm TypeOrmModule vào import của appModule
+
+```ts
+ TypeOrmModule.forRootAsync({
+      imports: [ConfigModule], //import y như cách hoạt động của module,
+      useFactory: postgresConfig, //gọi method (có return object mới được quá)
+      inject: [ConfigService], //inject vào để xài,
+      // nguyên đống này giống như 1 module con
+    }),
+```
+
+## Task 4 - user module
+
+- tạo module, controller, service
+- tạo user/user.entity.ts
+- nhớ phải có `@Entity()` và cột id phải là `@PrimaryGeneratedColumn()`
+- email thì phải là `@Column({unique: true})`
+  import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+  type Role = 'admin' | 'user';
+
+```ts
+@Entity()
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  username: string;
+
+  @Column({ unique: true })
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column()
+  role: Role;
+}
+```

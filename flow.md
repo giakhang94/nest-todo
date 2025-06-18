@@ -111,3 +111,21 @@ export class User {
   role: Role;
 }
 ```
+
+### Vao user service
+
+- inject userRepository to the userService
+
+```ts
+constructor(InjectRepository(User) private User: Repository<User>) {}
+```
+
+- go to user.module.ts (userModule class)
+  - `imports: [TypeOrmModule.forFeature([User])]`
+  - //User: user entity
+
+### task 4 - create user
+
+- create-user.dto.ts
+- validation pipe
+- create-user flow (controller and service)

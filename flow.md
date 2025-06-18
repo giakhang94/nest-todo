@@ -136,7 +136,21 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 ## Task 5 - Swagger
 
 - setup swagger in main.ts
+- đọc docs của nestjs về swagger
 
 ```ts
-
+- lưu ý cái decorator sau
+  - ApiBody() //thường làm ở controller
 ```
+
+- ApiTags()
+- ApiOPeration() để mô tả tổng quan endpoint đó
+- ApiCreatedResponse()
+- ApiBadRequestResponse()
+- @ApiProperty({ example: 'khang@test.com' }) // đùng trong dto
+- @ApiProperty({enum: Role, example: Role.User})
+
+## Task 6 - auth module
+
+- create module
+- tao verifyUser() trong service

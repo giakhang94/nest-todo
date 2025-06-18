@@ -6,9 +6,17 @@ import {
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dtos/login-user.dto';
 import * as bcrypt from 'bcrypt';
+import { User } from 'src/users/user.entity';
+import { Response } from 'express';
 @Injectable()
 export class AuthService {
   constructor(private usersService: UsersService) {}
+
+  async loginUser(user: User, res: Response) {
+    console.log(user);
+    return 1;
+  }
+
   async verifyUser(email: string, password: string) {
     const user = await this.usersService.getUserByEmail(email);
     if (!user) {

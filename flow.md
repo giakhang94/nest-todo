@@ -129,3 +129,6 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 - create-user.dto.ts
 - validation pipe
 - create-user flow (controller and service)
+- không hiện password
+- trong entity: thêm @exclude() vào chỗ cần che đậy
+- trong controller `return instanceToPlain(user)` hoặc `return instanceToPlain(this.usersService.create(body))`

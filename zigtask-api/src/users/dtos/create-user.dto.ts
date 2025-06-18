@@ -1,10 +1,15 @@
+import { Exclude } from 'class-transformer';
 import {
   IsEmail,
+  IsEnum,
   IsNotEmpty,
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-import { Role } from '../user.entity';
+export enum Role {
+  Admin = 'admin',
+  User = 'user',
+}
 
 export class CreateUserDto {
   @IsString()
@@ -25,5 +30,6 @@ export class CreateUserDto {
   password: string;
 
   @IsNotEmpty()
+  @IsEnum(Role, { message: 'role must either admin or user' })
   role: Role;
 }

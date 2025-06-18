@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -16,6 +16,7 @@ export class UsersService {
     if (user) {
       throw new BadRequestException('email has already been used');
     }
+
     const hashedPassword = await bcrypt.hash(body.password, 8);
     const newUser = this.usersRepository.create({
       ...body,

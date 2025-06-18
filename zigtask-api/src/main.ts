@@ -10,8 +10,6 @@ async function bootstrap() {
     .setTitle('Zigvy task homework docs')
     .setDescription('The task API documentation')
     .setVersion('1.0')
-    .addTag('Tasks')
-    .addTag('Users')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

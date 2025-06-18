@@ -154,3 +154,7 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 
 - create module
 - tao verifyUser() trong service
+- tao local strategy, get current user decorator. Nhớ local strategy phải có @Injectable()
+- login ở controller sẽ truyền user và response cho service
+- service xử lý token, đưa token lên response
+- nhớ đăng ký local strategy với auth module (đăng ký ở providers)

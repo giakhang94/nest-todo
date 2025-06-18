@@ -132,3 +132,11 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 - không hiện password
 - trong entity: thêm @exclude() vào chỗ cần che đậy
 - trong controller `return instanceToPlain(user)` hoặc `return instanceToPlain(this.usersService.create(body))`
+
+## Task 5 - Swagger
+
+- setup swagger in main.ts
+
+```ts
+
+```

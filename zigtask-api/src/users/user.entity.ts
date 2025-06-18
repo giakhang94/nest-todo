@@ -1,19 +1,24 @@
+import { Exclude } from 'class-transformer';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-type Role = 'admin' | 'user';
+export type Role = 'admin' | 'user';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  username: string;
+  firstName: string;
+
+  @Column()
+  lastName: string;
 
   @Column({ unique: true })
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
-  @Column()
+  @Column({ default: 'user' })
   role: Role;
 }

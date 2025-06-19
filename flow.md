@@ -179,3 +179,6 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 - entity
 - add task entity to the config object of typeORM module
 - tao truoc cac api rong~
+- crud
+
+# Client

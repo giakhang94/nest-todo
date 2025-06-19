@@ -112,7 +112,13 @@ export class TasksController {
   })
   updateStatus(
     @Param('id') taskId: string,
-    @Body() status: UpdateTaskDto,
+    @Body() status: UpdateStatusDto,
     @GetCurrentUser() user: PayloadToken,
-  ) {}
+  ) {
+    return this.tasksService.updateTaskStatus(
+      Number(taskId),
+      Number(user.userId),
+      status.status,
+    );
+  }
 }

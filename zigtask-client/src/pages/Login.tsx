@@ -10,17 +10,50 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/actions/loginUser";
+import { useNavigate } from "react-router-dom";
+
 type State = { email: string; password: string };
+
 export function Login() {
+  const [error, setError] = useState<string>();
+  const navigate = useNavigate();
   const [input, setInput] = useState<State>({ email: "", password: "" });
+  const muation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+      navigate("/");
+    },
+    onError: (error: any) => {
+      setError(error.response.data.message!);
+    },
+  });
+
+  const handleLogin = () => {
+    muation.mutate(input);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError("");
+    setInput((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
   return (
     <Card className="w-full max-w-sm h-full mx-auto mt-10">
       <CardHeader>
         <CardTitle>Login to ZIGVY TODO</CardTitle>
       </CardHeader>
       <CardContent>
-        <form>
+        <form className="transition-all duration-700">
           <div className="flex flex-col gap-6">
+            {error && (
+              <span className="block w-full text-center py-2 px-2 bg-red-200 text-red-600 rounded-sm">
+                {error}
+              </span>
+            )}
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -30,12 +63,7 @@ export function Login() {
                 placeholder="m@example.com"
                 required
                 value={input.email}
-                onChange={(e) => {
-                  setInput((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }));
-                }}
+                onChange={handleChange}
               />
             </div>
             <div className="grid gap-2">
@@ -54,19 +82,14 @@ export function Login() {
                 name="password"
                 required
                 value={input.password}
-                onChange={(e) => {
-                  setInput((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }));
-                }}
+                onChange={handleChange}
               />
             </div>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full">
+        <Button type="button" className="w-full" onClick={handleLogin}>
           Login
         </Button>
         <CardAction className="w-full text-center">

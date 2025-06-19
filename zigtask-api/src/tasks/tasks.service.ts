@@ -68,7 +68,10 @@ export class TasksService {
     if (!userId) {
       throw new UnauthorizedException('Please login to continue');
     }
-    return this.taskRepo.find({ where: { user: { id: userId } } });
+    return this.taskRepo.find({
+      where: { user: { id: userId } },
+      order: { title: 'DESC' },
+    });
   }
 
   async getAllTaskByAdmin(user: PayloadToken) {
@@ -79,6 +82,7 @@ export class TasksService {
   }
 
   async updateTaskStatus(taskId: number, userId: number, status: TaskStatus) {
+    console.log(status);
     if (!userId) throw new UnauthorizedException('Please login to continue');
     if (!taskId) throw new BadRequestException('Please provide task id');
     const task = await this.taskRepo.findOne({

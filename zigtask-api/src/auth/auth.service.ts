@@ -40,7 +40,9 @@ export class AuthService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-    const isMatchPassword = bcrypt.compare(password, user.password);
+
+    const isMatchPassword = await bcrypt.compare(password, user.password);
+
     if (!isMatchPassword) {
       throw new BadRequestException('email or password is not correct');
     }

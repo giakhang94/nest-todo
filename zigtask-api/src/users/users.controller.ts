@@ -30,11 +30,11 @@ export class UsersController {
     return instanceToPlain(this.usersService.createUser(body));
   }
 
-  //test jwt-strategy
   @Get('me')
   @UseGuards(JwtGuard)
   getMe(@GetCurrentUser() user: PayloadToken) {
-    console.log('user controller testing..');
-    console.log('payload', user);
+    return instanceToPlain(
+      this.usersService.getCurrentUser(Number(user.userId)),
+    );
   }
 }

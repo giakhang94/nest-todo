@@ -3,11 +3,19 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
+import * as cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
   app.use(cookieParser());
+  app.use(
+    cors({
+      origin: ['http://localhost:5173'],
+      methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
+      credentials: true,
+    }),
+  );
   const config = new DocumentBuilder()
     .setTitle('Zigvy task homework docs')
     .setDescription('The task API documentation')

@@ -23,8 +23,10 @@ export class AuthService {
   async loginUser(user: User, res: Response) {
     const payload = { userId: user.id, role: user.role };
     const token = this.jwtService.sign(payload);
-    const expireTime = this.configService.get<string>('JWT_EXP') as any;
-    const duration = ms(expireTime);
+    const expireTime = parseInt(
+      this.configService.get<string>('JWT_EXP') as any,
+    );
+    const duration = expireTime * 60 * 60 * 1000;
     res.cookie('Authentication', token, {
       httpOnly: true,
       secure: true,

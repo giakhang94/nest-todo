@@ -150,7 +150,7 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 - @ApiProperty({ example: 'khang@test.com' }) // đùng trong dto
 - @ApiProperty({enum: Role, example: Role.User})
 
-## Task 6 - auth module
+## Task 6, task7 - auth module vaf local strategy
 
 - create module
 - tao verifyUser() trong service
@@ -158,3 +158,17 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 - login ở controller sẽ truyền user và response cho service
 - service xử lý token, đưa token lên response
 - nhớ đăng ký local strategy với auth module (đăng ký ở providers)
+
+## Task 8 - login user
+
+- jwt config
+- register async (do phai loan env)
+- do dùn register => phải gọi useFactory để nó return config object
+- xài env nên phải import ConfigModule và inject configService
+- dùng ms để đưa 10h về millisecond sau đó cộng với date.now() và đưa cái đổng đó thành instance của Date
+  - `new Date(Date.now + ms(exp))`
+  - `exp = config.get<string>('JWT_EXP') as any`
+
+## Task 9 - jwt strategy
+
+- tuyệt đối lưu ý: phải cấu hình cookie-parser()

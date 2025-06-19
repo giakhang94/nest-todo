@@ -172,3 +172,10 @@ constructor(InjectRepository(User) private User: Repository<User>) {}
 ## Task 9 - jwt strategy
 
 - tuyệt đối lưu ý: phải cấu hình cookie-parser()
+
+## Task 10 - tasks module
+
+- nest new
+- entity
+- add task entity to the config object of typeORM module
+- tao truoc cac api rong~

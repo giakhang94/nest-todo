@@ -1,5 +1,6 @@
 import { Exclude } from 'class-transformer';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Task } from 'src/tasks/task.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 export type Role = 'admin' | 'user';
 @Entity()
 export class User {
@@ -21,4 +22,7 @@ export class User {
 
   @Column({ default: 'user' })
   role: Role;
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks: Task[];
 }

@@ -12,6 +12,7 @@ import {
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { GetCurrentUser } from 'src/auth/decorators/GetCurrentUser.decorator';
 import { PayloadToken } from 'src/auth/types';
+import { UserResponseDto } from './dtos/user-response.dto';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
@@ -23,7 +24,7 @@ export class UsersController {
     description: 'Creates a new user account with email, password, and role',
   })
   @ApiBody({ type: CreateUserDto })
-  @ApiCreatedResponse({ type: CreateUserDto })
+  @ApiCreatedResponse({ type: UserResponseDto })
   @ApiBadRequestResponse({ description: 'email has been already used' })
   createUser(@Body() body: CreateUserDto) {
     return instanceToPlain(this.usersService.createUser(body));

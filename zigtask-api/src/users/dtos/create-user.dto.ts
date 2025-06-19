@@ -7,10 +7,7 @@ import {
   IsString,
   IsStrongPassword,
 } from 'class-validator';
-export enum Role {
-  Admin = 'admin',
-  User = 'user',
-}
+import { Role } from 'src/auth/types';
 
 export class CreateUserDto {
   @ApiProperty({ example: 'Khang' })

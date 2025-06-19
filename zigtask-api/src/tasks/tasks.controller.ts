@@ -15,6 +15,7 @@ import { PayloadToken } from 'src/auth/types';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import {
   ApiBadRequestResponse,
+  ApiBody,
   ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiNoContentResponse,
@@ -26,6 +27,7 @@ import {
 } from '@nestjs/swagger';
 import { TaskResponseDto } from './dtos/task-response.dto';
 import { UpdateTaskDto } from './dtos/update-task.dto';
+import { UpdateStatusDto } from './dtos/update-status.dto';
 @ApiTags()
 @Controller('tasks')
 export class TasksController {
@@ -98,10 +100,13 @@ export class TasksController {
   @Patch(':id/status')
   @UseGuards(JwtGuard)
   @ApiOperation({ summary: 'toggle task status' })
-  @ApiBadRequestResponse({ description: 'nothing changes' })
-  @ApiBadRequestResponse({ description: 'please provide task id' })
-  @ApiUnauthorizedResponse({ description: 'please login to continue' })
-  @ApiOkResponse({ type: CreateTaskDto })
+  @ApiBody({ type: UpdateStatusDto })
+  //   @ApiBadRequestResponse({ description: 'nothing changes' })
+  @ApiBadRequestResponse({
+    description:
+      'Bad Request. Possible reasons:\n- nothing changes\n- please provide task id',
+  })
+  @ApiOkResponse({ type: TaskResponseDto })
   @ApiForbiddenResponse({
     description: 'You are not allowed to update this task status',
   })

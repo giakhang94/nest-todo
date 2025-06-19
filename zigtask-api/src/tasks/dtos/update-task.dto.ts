@@ -10,30 +10,24 @@ import { TaskStatus } from '../types';
 import { Transform } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateTaskDto {
+export class UpdateTaskDto {
   @IsString()
   @MinLength(5)
   @MaxLength(20)
-  @IsNotEmpty()
+  @IsOptional()
   @ApiProperty({ example: 'blockchain course' })
-  title: string;
+  title?: string;
 
   @IsString()
   @MinLength(5)
   @MaxLength(100)
   @IsOptional()
   @ApiProperty({
-    example: 'learn how to build blockchain and crypto currency on udemy',
+    example: 'learn how to build blockchain and crypto currency on Udemy',
   })
   description?: string;
 
-  @IsNotEmpty()
-  @ApiProperty({ example: '06/30/2025' })
-  due: Date;
-
-  @IsEnum(TaskStatus)
   @IsOptional()
-  @Transform(({ value }) => value ?? TaskStatus.todo)
-  @ApiProperty({ example: 'To Do' })
-  status?: TaskStatus;
+  @ApiProperty({ example: '06/30/2025' })
+  due?: Date;
 }

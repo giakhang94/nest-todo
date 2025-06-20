@@ -16,7 +16,7 @@ I’ve sent the invite to the GitHub account of the test author: https://github.
 
 This project is a task management system supporting:
 
-- User registration and authentication (signup, login, logout)
+- User registration and authentication (sign up, login, logout)
 - Users can create, update, and delete their own tasks
 - Role-based access (Admin/User)
 - Realtime search with debounce

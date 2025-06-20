@@ -10,20 +10,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUser } from "@/actions/loginUser";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuthContext } from "@/context/AuthContext";
 
 type State = { email: string; password: string };
 
 export function Login() {
+  const queryClient = useQueryClient();
+  const { user, isLoading } = useAuthContext();
+  if (!isLoading && user) {
+    return <Navigate to="/dashboard/tasks" />;
+  }
   const [error, setError] = useState<string>();
   const navigate = useNavigate();
   const [input, setInput] = useState<State>({ email: "", password: "" });
   const muation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      navigate("/");
+      queryClient.invalidateQueries();
+      navigate("/dashboard/tasks");
     },
     onError: (error: any) => {
       setError(error.response.data.message!);
@@ -69,12 +76,6 @@ export function Login() {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a>
               </div>
               <Input
                 id="password"
@@ -94,7 +95,9 @@ export function Login() {
         </Button>
         <CardAction className="w-full text-center">
           <span>Already had an account?</span>
-          <Button variant="link">Sign Up</Button>
+          <Link to="/auth/register" className="ml-2 text-violet-500">
+            Sign up
+          </Link>
         </CardAction>
       </CardFooter>
     </Card>

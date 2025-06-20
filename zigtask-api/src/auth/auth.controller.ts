@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalGuard } from './guards/local.guard';
 import { GetCurrentUser } from './decorators/GetCurrentUser.decorator';
@@ -9,6 +9,7 @@ import {
   ApiBody,
   ApiCreatedResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
@@ -38,5 +39,12 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
   ) {
     return this.authService.loginUser(user, res);
+  }
+
+  @Get('logout')
+  @ApiOperation({ summary: 'Logout user' })
+  @ApiOkResponse({ example: { message: 'Logout!' } })
+  logoutUser(@Res({ passthrough: true }) res: Response) {
+    return this.authService.logoutUser(res);
   }
 }

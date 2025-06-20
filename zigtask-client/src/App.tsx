@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import { ProtectedLayout } from "./pages/dashboard/ProtectedLayout";
 import Task from "./pages/dashboard/Task";
 import TaskDragDrop from "./pages/dashboard/TaskDragDrop";
+import { Register } from "./pages/Register";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/register" element={<Register />} />
           <Route
             path="/dashboard/tasks"
             element={

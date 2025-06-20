@@ -1,12 +1,10 @@
 import { useAuthContext } from "@/context/AuthContext";
 import loading from "@/assets/loading.svg";
 import LandingPage from "@/components/ui/LandingPage";
-import { ProtectedLayout } from "./dashboard/ProtectedLayout";
-import Task from "./dashboard/Task";
 import { Navigate } from "react-router-dom";
 function Home() {
   const state = useAuthContext();
-  const { user, isLoading } = state;
+  const { user, isLoading, isError } = state;
   if (isLoading) {
     return (
       <div className="relative">
@@ -19,7 +17,7 @@ function Home() {
       </div>
     );
   } else {
-    if (user) {
+    if (user && !isError) {
       return <Navigate to="/dashboard/tasks" />;
     } else {
       return <LandingPage />;

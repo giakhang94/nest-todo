@@ -1,9 +1,12 @@
 import { getTaskByUser } from "@/actions/getTaskByUser";
 import TaskItem from "@/components/tasks/TaskItem";
 import Loading from "@/components/ui/Loading";
+import { useAuthContext } from "@/context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
+import { Navigate } from "react-router-dom";
 
 function Task() {
+  const { user } = useAuthContext();
   const { data, isLoading, error } = useQuery({
     queryKey: ["task"],
     queryFn: getTaskByUser,

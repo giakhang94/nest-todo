@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { loginUser } from "@/actions/loginUser";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "@/context/AuthContext";
 import {
   DropdownMenu,
@@ -167,7 +167,9 @@ export function Register() {
         </Button>
         <CardAction className="w-full text-center">
           <span>Already had an account?</span>
-          <Button variant="link">Sign Up</Button>
+          <Link to="/auth/login" className="ml-3 text-violet-500">
+            Login
+          </Link>
         </CardAction>
       </CardFooter>
     </Card>

@@ -94,7 +94,7 @@ export function Login() {
           Login
         </Button>
         <CardAction className="w-full text-center">
-          <span>Already had an account?</span>
+          <span>Don't have an account?</span>
           <Link to="/auth/register" className="ml-2 text-violet-500">
             Sign up
           </Link>

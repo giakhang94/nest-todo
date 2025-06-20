@@ -1,54 +1,140 @@
-# React + TypeScript + Vite
+# Task Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack task management application with web. Built with modern technologies and designed for real-time collaboration, intuitive UI, and role-based access control.
 
-Currently, two official plugins are available:
+# Important note
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To ensure safety and better version control, I initially worked on a private draft repository where I managed issues and committed code incrementally.
+However, due to time constraints, the final submitted project is a copied version from that draft repo (I didn’t have time to clean and push a new version — that's a stupid decision).
 
-## Expanding the ESLint configuration
+If you’d like to review the original commit history, please accept the invitation to that private repository.
+I’ve sent the invite to the GitHub account of the test author: https://github.com/haunguyen90
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Project Overview
+
+This project is a task management system supporting:
+
+- User registration and authentication (signup, login, logout)
+- Users can create, update, and delete their own tasks
+- Role-based access (Admin/User)
+- Realtime search with debounce
+- Inline editing
+- Status-based task grouping and update
+- Theme toggling (Dark/Light)
+- Responsive UI (Web-first, mobile-adaptive)
+
+---
+
+## Setup & Run Instructions
+
+### Backend
+
+> Built with NestJS, TypeORM, Postgres
+
+1. Clone the repo: https://github.com/ZigvyCorp/zigvy-interview-homework
+
+2. install packages:
+
+```bash
+  npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+3. Set up environment:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+PORT=3000
+NODE_ENV=development
+DB_HOST=localhost
+DB_USERNAME=test_user
+DB_PASSWORD=your_password
+DB_NAME=your_db_name
+DB_PORT=your_port
+JWT_SECRET=your_secret
+JWT_EXP=1
 ```
+
+4. Crate connect to your postgres db
+
+5. run
+
+```bash
+npm run start:dev
+```
+
+---
+
+### Web Frontend
+
+> Built with Vite, React, React Query, TailwindCSS, Shadcn UI
+
+1. Navigate to `client/`:
+
+   ```bash
+   cd ../client
+   ```
+
+2. Setup:
+
+   ```bash
+   npm install
+   ```
+
+3. Start dev server:
+
+   ```bash
+   npm run dev
+   ```
+
+---
+
+### 📱 Mobile
+
+> React Native version is under development and not included in this release.
+
+---
+
+## Design Decisions & Trade-offs
+
+- Instead of toggling task status with a select box, I used **stepwise status display (Todo → In Progress → Done)** for intuitive interaction. Users simply click to advance status.
+- Editing is done directly on the task card via a `FlexibleInput` component that switches between `<p>` and `<input>`, allowing seamless inline editing.
+- **Only admins** can promote others to admin or delete tasks globally.
+- Implemented **realtime search with debounce (800ms)** to enhance performance and user experience.
+- **Drag-and-drop not yet implemented**, but planned as next improvement.
+- Includes **theme toggling** using `shadcn/ui` components.
+- Due to time constraints, the **task modal form was assisted by AI** for initial structure, then refined manually.
+- After submitting this test, I'll continue to research for CI/CD, websocket subject to apply to this project
+
+---
+
+## API Docs
+
+The project is documented using Swagger.
+
+- [Swagger UI available at ](http://localhost:3000/api)[`/docs`](http://localhost:3000/api)
+
+---
+
+## Screenshots
+
+### Web App
+
+[video demo](https://youtu.be/LA6JMi0If9A)
+
+---
+
+## Tech Stack
+
+- **Backend**: NestJS, TypeORM, Postgres, Passport, Swagger
+- **Frontend**: React, React Query, TailwindCSS, Shadcn UI, Typescript
+- **Auth**: JWT (Role-based)
+- **UI/UX**: Realtime search, Debounce, Inline editing, Dark/Light Theme
+
+---
+
+## Author
+
+Nguyen Gia Khang – [Portfolio](https://portfolio-woad-two-34.vercel.app/)
+
+---

@@ -35,6 +35,15 @@ export class AuthService {
     return { message: 'Login successfully' };
   }
 
+  async logoutUser(res: Response) {
+    res.cookie('Authentication', '', {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(Date.now() + 1),
+    });
+    return { message: 'Logout!' };
+  }
+
   async verifyUser(email: string, password: string) {
     const user = await this.usersService.getUserByEmail(email);
     if (!user) {

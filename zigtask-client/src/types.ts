@@ -16,6 +16,7 @@ export interface InitState {
   user: User | undefined;
   isLoading: boolean;
   isAuthenticated: boolean;
+  isError: boolean;
 }
 
 export interface Task {
